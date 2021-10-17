@@ -1,11 +1,18 @@
-package Building;
-
+package building;
 import java.util.ArrayList;
 
+/**
+ * Class Floor this is...
+ * @author Avdeenko Dasha
+ */
 public class Floor {
+    /**Static variable that helps determine the floor number*/
     private static int staticNumFloor = 1;
+    /**Variable that stores the floor number*/
     private int numFloor = 0;
+    /**Variable that stores the number of apartments in the floor*/
     private int numApartment = 0;
+    /**ArrayList storing the structure of the floor*/
     private ArrayList<Apartment> floor = new ArrayList<Apartment>();
 
     Floor(){
@@ -47,15 +54,21 @@ public class Floor {
         this.numApartment = numApartment;
     }
 
-   public double Square(){
+    /**
+     * Method calculateArea calculates the area of the floor
+     */
+    public double calculateArea(){
         double square = 0;
         for(int i = 0; i < numApartment; ++i){
-            square += floor.get(i).getSquare();
+            square += floor.get(i).getSquareApartment();
         }
         return square;
     }
 
-    public int Tenants(){
+    /**
+     * Method countTenants calculates the number of residents in the floor
+     */
+    public int countTenants(){
         int tenants = 0;
         for(int i = 0; i < numApartment; ++i){
             tenants += floor.get(i).getNumResidents();
@@ -65,11 +78,11 @@ public class Floor {
 
     public boolean equals(Object obj) {
         if(!(obj instanceof Floor)) return false;
-        if(numApartment==0 || ((Floor)obj).numApartment==0) return false;
-        if(numApartment == ((Floor)obj).numApartment)
+        if(numApartment==0 || ((Floor) obj).numApartment==0) return false;
+        if(numApartment == ((Floor) obj).numApartment)
         {
             for(int i = 0; i < numApartment; ++i){
-                if(!floor.get(i).equals(((Floor)obj).floor.get(i)))
+                if(!floor.get(i).equals(((Floor) obj).floor.get(i)))
                     return false;
             }
             return  true;

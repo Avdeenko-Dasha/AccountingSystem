@@ -1,4 +1,4 @@
-package Building;
+package building;
 import java.util.Scanner;
 
 public class Main {
@@ -10,8 +10,8 @@ public class Main {
             int numFloor = enterNum();
             House house = new House(numFloor);
             System.out.println(house.toString());
-            System.out.println("House square - " + house.Square());
-            System.out.println("Number of residents in the house - " + house.Tenants());
+            System.out.println("House square - " + house.calculateArea());
+            System.out.println("Number of residents in the house - " + house.countTenants());
             System.out.println("Number of floors in the house - " + house.getNumFloor());
             System.out.println();
         }
@@ -32,5 +32,4 @@ public class Main {
         }
         return n;
     }
-
 }
