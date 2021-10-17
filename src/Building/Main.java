@@ -3,13 +3,18 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.print("Enter the number of floors in the house: ");
-        int n = enterNum();
-        House house = new House(n);
-        System.out.println(house.toString());
-        System.out.println("House square - " + house.Square());
-        System.out.println("Number of residents in the house - " + house.Tenants());
-        System.out.println("Number of floors in the house - " + house.getNumFloor());
+        System.out.print("Enter the number of Houses: ");
+        int numHouse = enterNum();
+        for(int i = 0; i < numHouse; ++i) {
+            System.out.print("Enter the number of floors in the house: ");
+            int numFloor = enterNum();
+            House house = new House(numFloor);
+            System.out.println(house.toString());
+            System.out.println("House square - " + house.Square());
+            System.out.println("Number of residents in the house - " + house.Tenants());
+            System.out.println("Number of floors in the house - " + house.getNumFloor());
+            System.out.println();
+        }
     }
 
     public static int enterNum(){

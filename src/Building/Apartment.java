@@ -51,6 +51,28 @@ public class Apartment {
         this.numApartment = numApartment;
     }
 
+    public void compare(Object obj){
+        if(!(obj instanceof Apartment))
+            System.out.println("Error! Trying to compare different objects");
+        else if(square==0 || ((Apartment)obj).square==0)
+            System.out.println("Error! Empty object");
+        else if(equals(obj))
+            System.out.println("Apartment at the same");
+        else {
+            if (square > ((Apartment) obj).square)
+                System.out.println("The area of apartment " + numApartment + " is larger than the area of apartment " + ((Apartment) obj).numApartment);
+            if (square < ((Apartment) obj).square)
+                System.out.println("The area of apartment " + numApartment + " is less than the area of apartment " + ((Apartment) obj).numApartment);
+            if (square == ((Apartment) obj).square)
+                System.out.println("The area of apartment " + numApartment + " is equal to the area of apartment " + ((Apartment) obj).numApartment);
+            if (numResidents > ((Apartment) obj).numResidents)
+                System.out.println("The number of tenants in apartment " + numApartment + " is greater than the number of tenants in apartment " + ((Apartment) obj).numApartment);
+            if (numResidents < ((Apartment) obj).numResidents)
+                System.out.println("The number of tenants in apartment " + numApartment + " is less than the number of tenants in apartment " + ((Apartment) obj).numApartment);
+            if (numResidents > ((Apartment) obj).numResidents)
+                System.out.println("The number of tenants in apartment " + numApartment + " is equal than the number of tenants in apartment " + ((Apartment) obj).numApartment);
+        }
+    }
 
     public boolean equals(Object obj) {
         if(!(obj instanceof Apartment)) return false;
