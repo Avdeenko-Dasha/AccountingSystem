@@ -21,10 +21,10 @@ public class House {
         staticNumHouse++;
         numFloor = 0;
         house = new ArrayList<Floor>(0);
-    }
-
-    public int getNumHouse() {
-        return numHouse;
+        Floor floor = new Floor();
+        floor.setStaticNumFloor(1);
+        Apartment apartment = new Apartment();
+        apartment.setStaticNumApartment(1);
     }
 
     public int getNumFloor() {

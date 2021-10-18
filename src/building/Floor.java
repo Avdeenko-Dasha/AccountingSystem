@@ -22,7 +22,6 @@ public class Floor {
         staticNumFloor++;
         setNumApartment(0);
         floor = new ArrayList<Apartment>(0);
-
     }
 
     public static void setStaticNumFloor(int staticNumFloor) {
