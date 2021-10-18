@@ -8,7 +8,7 @@ public class Main {
         for(int i = 0; i < numHouse; ++i) {
             System.out.print("Enter the number of floors in the house: ");
             int numFloor = enterNum();
-            House house = new House(numFloor);
+            House house = new House.BuilderHouse().setNumFloor(numFloor).build();
             System.out.println(house.toString());
             System.out.println("House square - " + house.calculateArea());
             System.out.println("Number of residents in the house - " + house.countTenants());
