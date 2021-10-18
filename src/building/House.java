@@ -15,23 +15,16 @@ public class House {
     /**ArrayList storing the structure of the house*/
     private ArrayList<Floor> house = new ArrayList<Floor>();
 
-    House(){
+    House()
+    {
         numHouse = staticNumHouse;
         staticNumHouse++;
         numFloor = 0;
         house = new ArrayList<Floor>(0);
     }
 
-    House(int numFloor){
-        numHouse = staticNumHouse;
-        staticNumHouse++;
-        this.numFloor = numFloor;
-        house = new ArrayList<Floor>(numFloor);
-        int numApartment = (int)(2 + Math.random() * 4);
-        for(int i = 0; i < numFloor; ++i){
-            Floor floor = new Floor(numApartment);
-            house.add(i, floor);
-        }
+    public int getNumHouse() {
+        return numHouse;
     }
 
     public int getNumFloor() {
@@ -121,6 +114,29 @@ public class House {
             }
             return  true;
         } else return false;
+    }
+
+    public static class BuilderHouse{
+        private House newHouse;
+
+        public BuilderHouse(){
+            newHouse = new House();
+        }
+
+        public BuilderHouse setNumFloor(int numFloor){
+            newHouse.numFloor = numFloor;
+            newHouse.house = new ArrayList<Floor>(numFloor);
+            int numApartment = (int)(2 + Math.random() * 4);
+            for(int i = 0; i < numFloor; ++i){
+                Floor floor = new Floor.BuilderFloor().setNumApartment(numApartment).build();
+                newHouse.house.add(i, floor);
+            }
+            return this;
+        }
+
+        public House build(){
+            return newHouse;
+        }
     }
 
 }

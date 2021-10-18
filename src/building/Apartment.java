@@ -22,17 +22,9 @@ public class Apartment {
         setNumResidents(0);
     }
 
-    Apartment(double square) {
-        setNumApartment(staticNumApartment);
-        staticNumApartment++;
-        setSquareApartment(square);
-    }
 
-    Apartment(double square, int numResidents){
-        setNumApartment(staticNumApartment);
-        staticNumApartment++;
-        setSquareApartment(square);
-        setNumResidents(numResidents);
+    public static void setStaticNumApartment(int staticNumApartment) {
+        Apartment.staticNumApartment = staticNumApartment;
     }
 
     public double getSquareApartment() {
@@ -47,8 +39,9 @@ public class Apartment {
         return numResidents;
     }
 
-    public void setNumResidents(int numResidents) {
+    public Apartment setNumResidents(int numResidents) {
         this.numResidents = numResidents;
+        return null;
     }
 
     public int getNumApartment() {
@@ -97,6 +90,28 @@ public class Apartment {
     }
 
     public String toString() {
-        return "Apartment - " + numApartment + " Square - " + String.format("%.2f", squareApartment) + " Residents - " + numResidents;
+        return "Apartment - " + getNumApartment() + " Square - " + String.format("%.2f", squareApartment) + " Residents - " + getNumResidents();
+    }
+
+    public static class BuilderApartment{
+        private Apartment newApartment;
+
+        public BuilderApartment(){
+            newApartment = new Apartment();
+        }
+
+        public BuilderApartment setSquareApartment(double squareApartment){
+            newApartment.squareApartment = squareApartment;
+            return this;
+        }
+
+        public BuilderApartment setNumResidents(int numResidents){
+            newApartment.numResidents = numResidents;
+            return this;
+        }
+
+        public Apartment build(){
+            return newApartment;
+        }
     }
 }
