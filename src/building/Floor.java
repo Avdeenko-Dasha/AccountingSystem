@@ -1,5 +1,7 @@
 package building;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Scanner;
 
 /**
  * Class Floor this is...
@@ -13,7 +15,7 @@ public class Floor {
     /**Variable that stores the number of apartments in the floor*/
     private int numApartment = 0;
     /**ArrayList storing the structure of the floor*/
-    private ArrayList<Apartment> floor = new ArrayList<Apartment>();
+    private ArrayList<Apartment> floor;
 
 
 
@@ -21,8 +23,7 @@ public class Floor {
         setNumFloor(staticNumFloor);
         staticNumFloor++;
         setNumApartment(0);
-        floor = new ArrayList<Apartment>(0);
-
+        floor = new ArrayList<>(0);
     }
 
     public static void setStaticNumFloor(int staticNumFloor) {
@@ -81,12 +82,44 @@ public class Floor {
     }
 
     public String toString() {
-        StringBuilder str = new StringBuilder();
-        for(int i = 0; i < numApartment; ++i){
+        StringBuilder str = new StringBuilder("Floor - " + getNumFloor() + "\n");
+        for(int i = 0; i < getNumApartment(); ++i){
             str.append(floor.get(i).toString());
             str.append("\n");
         }
-        return "Floor - " + numFloor + "\n" + str.toString();
+        return str.toString();
+    }
+
+    private static double enterNumDouble(){
+        Scanner sc = new Scanner(System.in);
+        double n = 0;
+        while(sc.hasNext()){
+            if(sc.hasNextDouble()){
+                n = sc.nextDouble();
+                break;
+            }
+            else {
+                System.out.println("Enter the number!");
+                sc.next();
+            }
+        }
+        return n;
+    }
+
+    private static int enterNumInt(){
+        Scanner sc = new Scanner(System.in);
+        int n = 0;
+        while(sc.hasNext()){
+            if(sc.hasNextInt()){
+                n = sc.nextInt();
+                break;
+            }
+            else {
+                System.out.println("Enter the number!");
+                sc.next();
+            }
+        }
+        return n;
     }
 
     public static class BuilderFloor{
@@ -98,16 +131,36 @@ public class Floor {
 
         public BuilderFloor setNumApartment(int numApartment){
             newFloor.numApartment = numApartment;
-            newFloor.floor = new ArrayList<Apartment>(numApartment);
+            return this;
+        }
 
-            double square = 30 + Math.random()*200;
-            int numResidents = (int)(Math.random()*5);
+        public BuilderFloor methodOfCreation(String method){
+            if(method.toLowerCase(Locale.ROOT).equals("automatically")){
+                newFloor.floor = new ArrayList<>(newFloor.numApartment);
 
-            for(int i = 0; i < numApartment; ++i){
-                Apartment apartment = new Apartment.BuilderApartment().setSquareApartment(square).setNumResidents(numResidents).build();
-                newFloor.floor.add(i, apartment);
-                square = 30 + Math.random()*200;
-                numResidents = (int)(Math.random()*5);
+                double square = 30 + Math.random()*200;
+                int numResidents = (int)(Math.random()*5);
+
+                for(int i = 0; i < newFloor.numApartment; ++i){
+                    Apartment apartment = new Apartment.BuilderApartment().setSquareApartment(square).setNumResidents(numResidents).build();
+                    newFloor.floor.add(i, apartment);
+                    square = 30 + Math.random()*200;
+                    numResidents = (int)(Math.random()*5);
+                }
+            } else if(method.toLowerCase(Locale.ROOT).equals("yourself")){
+
+                newFloor.floor = new ArrayList<>(newFloor.numApartment);
+
+                for(int i = 0; i < newFloor.numApartment; ++i){
+                    System.out.println("Apartment " + i);
+                    System.out.print("Enter the area of apartment - ");
+                    double square = enterNumDouble();
+                    System.out.print("Enter the number of tenants in the apartment - ");
+                    int numResidents = enterNumInt();
+
+                    Apartment apartment = new Apartment.BuilderApartment().setSquareApartment(square).setNumResidents(numResidents).build();
+                    newFloor.floor.add(i, apartment);
+                }
             }
             return this;
         }
