@@ -1,4 +1,4 @@
-package building;
+package Building;
 import java.util.*;
 
 public class Main {
@@ -93,9 +93,22 @@ public class Main {
     }
 
     public static void outputHouse(ArrayList<House> arrayHouse){
+        System.out.println("Do you know the number of the house you want to get information about?\n1 - Yes\n0 - No");
+        int button = enterNumInt();
+        while(button < 0 || button > 1){
+            System.out.print("There is no such operation\nTry again - ");
+            button = enterNumInt();
+        }
+        if(button == 0){
+            System.out.println("Number of existing houses:");
+            for(int i = 0; i < arrayHouse.size(); ++i){
+                System.out.print(arrayHouse.get(i).getNumHouse()+" ");
+            }
+            System.out.println();
+        }
         System.out.print("Enter the number of the house you want to get information about - ");
         int index = enterNumInt();
-        while(index <= 0 || index >= arrayHouse.size()){
+        while(index <= 0 || index > arrayHouse.size()){
             System.out.print("There is no house with this number, try again - ");
             index = enterNumInt();
         }
@@ -104,7 +117,7 @@ public class Main {
             System.out.println("1 - Number of floors\n2 - Number of apartments\n3 - Number of tenants");
             System.out.println("4 - Total area of the house\n5 - All information about each apartment\n0 - Exit");
             System.out.print("Enter the number of the operation you want to perform - ");
-            int button = enterNumInt();
+            button = enterNumInt();
             if(button == 0)
                 break;
             while(button < 0 || button >= 6){
@@ -147,7 +160,7 @@ public class Main {
 
     public static void createNewApartment(ArrayList<Apartment> arrayApartment) {
         Apartment apartment = new Apartment();
-        apartment.setStaticNumApartment(1);
+        apartment.setStaticNumApartment(arrayApartment.size()+1);
         while (true) {
             System.out.println("How do you want to create a apartment?\n1 - Yourself\n2 - Automatically\n0 - Exit");
             int button = enterNumInt();
@@ -186,6 +199,19 @@ public class Main {
     }
 
     public static void outputApartment(ArrayList<Apartment> arrayApartment){
+        System.out.println("Do you know the number of the apartment you want to get information about?\n1 - Yes\n0 - No");
+        int button = enterNumInt();
+        while(button < 0 || button > 1){
+            System.out.print("There is no such operation\nTry again - ");
+            button = enterNumInt();
+        }
+        if(button == 0){
+            System.out.println("Number of existing apartment:");
+            for(int i = 0; i < arrayApartment.size(); ++i){
+                System.out.print(arrayApartment.get(i).getNumApartment() + " ");
+            }
+            System.out.println();
+        }
         System.out.print("Enter the number of the apartment you want to get information about - ");
         int index = enterNumInt();
         while(index <= 0 || index >= arrayApartment.size()){
@@ -197,7 +223,7 @@ public class Main {
             System.out.println("1 - Number of tenants");
             System.out.println("2 - Square\n3 - All information about apartment\n0 - Exit");
             System.out.print("Enter the number of the operation you want to perform - ");
-            int button = enterNumInt();
+            button = enterNumInt();
             if(button == 0)
                 break;
             while(button < 0 || button >= 4){
@@ -245,6 +271,19 @@ public class Main {
                 break;
 
             if(button == 1){
+                System.out.println("Do you know the number of the house you want to get information about?\n1 - Yes\n0 - No");
+                button = enterNumInt();
+                while(button < 0 || button > 1){
+                    System.out.print("There is no such operation\nTry again - ");
+                    button = enterNumInt();
+                }
+                if(button == 0){
+                    System.out.println("Number of existing houses:");
+                    for(int i = 0; i < arrayHouse.size(); ++i){
+                        System.out.print(arrayHouse.get(i).getNumHouse()+" ");
+                    }
+                    System.out.println();
+                }
                 if(arrayHouse.size()>1) {
                     System.out.print("Enter the number of the first house - ");
                     int index1 = enterNumInt();
@@ -262,6 +301,19 @@ public class Main {
                 }
                 else System.out.println("Not enough houses to compare");
             } else {
+                System.out.println("Do you know the number of the apartment you want to get information about?\n1 - Yes\n0 - No");
+                button = enterNumInt();
+                while(button < 0 || button > 1){
+                    System.out.print("There is no such operation\nTry again - ");
+                    button = enterNumInt();
+                }
+                if(button == 0){
+                    System.out.println("Number of existing apartment:");
+                    for(int i = 0; i < arrayApartment.size(); ++i){
+                        System.out.print(arrayApartment.get(i).getNumApartment() + " ");
+                    }
+                    System.out.println();
+                }
                 if(arrayApartment.size()>1) {
                     System.out.print("Enter the number of the first apartment - ");
                     int index1 = enterNumInt();

@@ -1,4 +1,4 @@
-package building;
+package Building;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
@@ -170,33 +170,31 @@ public class House {
             return this;
         }
         public BuilderHouse methodOfCreation(String method){
-            if(method.toLowerCase(Locale.ROOT).equals("yourself")){
+            int sumApartment = 0;
+            int numApartment = 0;
+            newHouse.house = new ArrayList<>(newHouse.numFloor);
 
-                newHouse.house = new ArrayList<>(newHouse.numFloor);
-                int sumApartment = 0;
+            if("yourself".equalsIgnoreCase(method)){
+                System.out.print("Enter the number of apartments on the floor - ");
+                numApartment = enterNumInt();
                 for(int i = 0; i < newHouse.numFloor; ++i){
-                    System.out.print("Enter the number of apartments on the " + i + " floor");
-                    int numApartment = enterNumInt();
                     sumApartment += numApartment;
                     Floor floor = new Floor.BuilderFloor().setNumApartment(numApartment).methodOfCreation("yourself").build();
-                    newHouse.house.add(i, floor);
+                    newHouse.house.add(floor);
                 }
-                newHouse.numApartment = sumApartment;
-            }else
+            }else if("automatically".equalsIgnoreCase(method))
             {
-                newHouse.house = new ArrayList<>(newHouse.numFloor);
-                int sumApartment = 0;
-                int numApartment = (int)(2 + Math.random() * 4);
+                numApartment = (int)(2 + Math.random() * 4);
                 for(int i = 0; i < newHouse.numFloor; ++i){
                     sumApartment += numApartment;
                     Floor floor = new Floor.BuilderFloor().setNumApartment(numApartment).methodOfCreation("automatically").build();
-                    newHouse.house.add(i, floor);
+                    newHouse.house.add(floor);
                 }
-                newHouse.numApartment = sumApartment;
             }
+            newHouse.numApartment = sumApartment;
             newHouse.squareHouse = newHouse.calculateArea();
             newHouse.numOfTenants = newHouse.countTenants();
-                return this;
+            return this;
         }
 
         public House build(){

@@ -1,4 +1,4 @@
-package building;
+package Building;
 
 /**
  * Class Apartment this is...
