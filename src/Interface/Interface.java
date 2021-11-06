@@ -9,7 +9,7 @@ public class Interface implements Tools {
         System.out.println("Welcome to the accounting system!");
         while (true) {
             System.out.println("1 - Create a house\n2 - Display information about the house\n3 - All created houses" +
-                    "4 - Delete a house\n" + "5 - Compare objects\n0 - Exit");
+                    "\n4 - Delete a house\n" + "5 - Compare objects\n0 - Exit");
             System.out.print("Enter the number of the operation you want to perform - ");
             int button = Tools.enterNumInt();
             if (button == 0)

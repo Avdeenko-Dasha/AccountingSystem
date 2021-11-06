@@ -102,7 +102,7 @@ interface Tools {
      static void outputAllHouse(ArrayList<House> arrayHouse){
         for(int i = 0; i < arrayHouse.size(); ++i){
             System.out.print("House number - " + arrayHouse.get(i).getNumHouse());
-            System.out.print("   Square - " + arrayHouse.get(i).getSquareHouse());
+            System.out.print("   Square - " + String.format("%.2f", arrayHouse.get(i).getSquareHouse()));
             System.out.println("   Number of tenants - " + arrayHouse.get(i).getNumOfTenants());
         }
         System.out.println();
@@ -122,7 +122,7 @@ interface Tools {
             }
             System.out.println();
         }
-        System.out.println("Enter the house number - ");
+        System.out.print("Enter the house number - ");
         int index = enterNumInt();
         while(index <= 0 || index > arrayHouse.size()){
             System.out.print("There is no house with this number, try again - ");
