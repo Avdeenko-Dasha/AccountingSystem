@@ -47,6 +47,13 @@ public class Floor {
     public void setNumApartment(int numApartment) {
         this.numApartment = numApartment;
     }
+    public Apartment getApartment(int index){
+        for(int i = 0; i < numApartment; ++i){
+            if(floor.get(i).getNumApartment() == index)
+                return floor.get(i);
+        }
+        return floor.get(0);
+    }
 
     /**
      * Method calculateArea calculates the area of the floor

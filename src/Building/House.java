@@ -60,6 +60,17 @@ public class House {
         return squareHouse;
     }
 
+    public Apartment getApartment(int index){
+        int numApartmentFloor = house.get(0).getNumApartment();
+        int numFloorApartment = 0;
+        int indexApartment = index;
+        while(indexApartment > 0){
+            indexApartment-=numApartmentFloor;
+            numFloorApartment += 1;
+        }
+        return house.get(numFloorApartment - 1).getApartment(index);
+    }
+
     /**
      * Method calculateArea calculates the area of the house
      */
@@ -110,22 +121,49 @@ public class House {
             double squareHouse2 = ((House) obj).calculateArea();
             int    numResidents1 = countTenants();
             int    numResidents2 = ((House) obj).countTenants();
+            int    numFloor2 = ((House) obj).numFloor;
+            int    numHouse2 = ((House) obj).numHouse;
 
             if (squareHouse1 > squareHouse2) {
-                System.out.println("The area of the house " + numHouse + " is larger than the area of the house " + ((House) obj).numHouse);
+                System.out.println("The area of the house " + numHouse +
+                        " is larger than the area of the house " + numHouse2);
             } else if (squareHouse1 < squareHouse2) {
-                System.out.println("The area of the house " + numHouse + " is less than the area of the house " + ((House) obj).numHouse);
+                System.out.println("The area of the house " + numHouse +
+                        " is less than the area of the house " + numHouse2);
             }else {
-                System.out.println("The area of the house " + numHouse + " is equal to the area of the house " + ((House) obj).numHouse);
+                System.out.println("The area of the house " + numHouse +
+                        " is equal to the area of the house " + numHouse2);
             }
+            System.out.println("House " + numHouse + " - " + squareHouse1 +
+                    "    House " + numHouse2 + " - " + squareHouse2 + "\n");
 
             if (numResidents1 > numResidents2) {
-                System.out.println("The number of tenants in the house " + numHouse + " is greater than the number of tenants in the house " + ((House) obj).numHouse);
+                System.out.println("The number of tenants in the house " + numHouse +
+                        " is greater than the number of tenants in the house " + numHouse2);
             }else if (numResidents1 < numResidents2) {
-                System.out.println("The number of tenants in the house " + numHouse + " is less than the number of tenants in the house " + ((House) obj).numHouse);
+                System.out.println("The number of tenants in the house " + numHouse +
+                        " is less than the number of tenants in the house " + numHouse2);
             } else {
-                System.out.println("The number of tenants in the house " + numHouse + " is equal than the number of tenants in the house " + ((House) obj).numHouse);
+                System.out.println("The number of tenants in the house " + numHouse +
+                        " is equal than the number of tenants in the house " + numHouse2);
             }
+            System.out.println("House " + numHouse + " - " + numResidents1 +
+                    "    House " + numHouse2 + " - " + numResidents2 + "\n");
+
+            if(numFloor > numFloor2){
+                System.out.println("The number of floors in the house " + numHouse +
+                        " is greater than the number of floors in the house " + numHouse2);
+            }
+            else if (numFloor < numFloor2){
+                System.out.println("The number of floors in the house " + numHouse +
+                        " is less than the number of floors in the house " + numHouse2);
+            }
+            else{
+                System.out.println("The number of floors in the house " + numHouse +
+                        " is equal than the number of floors in the house " + numHouse2);
+            }
+            System.out.println("House " + numHouse + " - " + numFloor +
+                    "    House " + numHouse2 + " - " + numFloor2 + "\n");
         }
     }
 
