@@ -4,7 +4,7 @@ package Building;
  * Class Apartment this is...
  * @author Avdeenko Dasha
  */
-public class Apartment {
+public class Apartment implements Instruments{
     /**Static variable that helps determine the apartment number*/
     private static int staticNumApartment = 1;
     /**Variable that stores the apartment number*/

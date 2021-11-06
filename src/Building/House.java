@@ -7,7 +7,7 @@ import java.util.Scanner;
  * Class House this is...
  * @author Avdeenko Dasha
  */
-public class House {
+public class House implements Instruments{
     /**Static variable that helps determine the house number*/
     private static int  staticNumHouse = 1;
     /**Variable that stores the house number*/
@@ -180,22 +180,6 @@ public class House {
         } else return false;
     }
 
-    private static int enterNumInt(){
-        Scanner sc = new Scanner(System.in);
-        int n = 0;
-        while(sc.hasNext()){
-            if(sc.hasNextInt()){
-                n = sc.nextInt();
-                break;
-            }
-            else {
-                System.out.println("Enter the number!");
-                sc.next();
-            }
-        }
-        return n;
-    }
-
     public static class BuilderHouse{
         private House newHouse;
 
@@ -214,7 +198,7 @@ public class House {
 
             if("yourself".equalsIgnoreCase(method)){
                 System.out.print("Enter the number of apartments on the floor - ");
-                numApartment = enterNumInt();
+                numApartment = Instruments.enterNumInt();
                 for(int i = 0; i < newHouse.numFloor; ++i){
                     sumApartment += numApartment;
                     Floor floor = new Floor.BuilderFloor().setNumApartment(numApartment).methodOfCreation("yourself").build();

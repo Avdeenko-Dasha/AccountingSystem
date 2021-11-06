@@ -1,54 +1,12 @@
-package Building;
-import java.util.*;
+package Interface;
 
-public class Main {
-    public static void main(String[] args) {
-        ArrayList<House> arrayHouses = new ArrayList<>(0);
-        System.out.println("Welcome to the accounting system!");
-        while (true) {
-            System.out.println("1 - Create a house\n2 - Display information about the house\n3 - All created houses" +
-                    "4 - Delete a house\n" + "5 - Compare objects\n0 - Exit");
-            System.out.print("Enter the number of the operation you want to perform - ");
-            int button = enterNumInt();
-            if (button == 0)
-                break;
-            while (button < 0 || button >= 6) {
-                System.out.print("There is no such operation\nTry again - ");
-                button = enterNumInt();
-            }
-            if (button == 0)
-                break;
-            switch (button) {
-                case 1:
-                    createNewHouse(arrayHouses);
-                    break;
-                case 2:
-                    if (arrayHouses.size() != 0)
-                        outputHouse(arrayHouses);
-                    else
-                        System.out.println("You don't have any homes created!");
-                    break;
-                case 3:
-                    if (arrayHouses.size() != 0)
-                        outputAllHouse(arrayHouses);
-                    else
-                        System.out.println("You don't have any homes created!");
-                    break;
-                case 4:
-                    if (arrayHouses.size() != 0)
-                        deleteHouse(arrayHouses);
-                    else
-                        System.out.println("You don't have any homes created!");
-                    break;
-                case 5:
-                    compare(arrayHouses);
-                    break;
-            }
-        }
-        System.out.println("Goodbye. Good luck!");
-    }
+import Building.House;
 
-    public static void createNewHouse(ArrayList<House> arrayHouse) {
+import java.util.ArrayList;
+import java.util.Scanner;
+
+interface Tools {
+    static void createNewHouse(ArrayList<House> arrayHouse) {
         while (true) {
             System.out.println("How do you want to create a house?\n1 - Yourself\n2 - Automatically\n0 - Exit");
             int button = enterNumInt();
@@ -81,7 +39,7 @@ public class Main {
         System.out.println();
     }
 
-    public static void outputHouse(ArrayList<House> arrayHouse){
+     static void outputHouse(ArrayList<House> arrayHouse){
         System.out.println("Do you know the number of the house you want to get information about?\n1 - Yes\n0 - No");
         int button = enterNumInt();
         while(button < 0 || button > 1){
@@ -141,7 +99,7 @@ public class Main {
         System.out.println();
     }
 
-    public static void outputAllHouse(ArrayList<House> arrayHouse){
+     static void outputAllHouse(ArrayList<House> arrayHouse){
         for(int i = 0; i < arrayHouse.size(); ++i){
             System.out.print("House number - " + arrayHouse.get(i).getNumHouse());
             System.out.print("   Square - " + arrayHouse.get(i).getSquareHouse());
@@ -150,7 +108,7 @@ public class Main {
         System.out.println();
     }
 
-    public static void deleteHouse(ArrayList<House> arrayHouse){
+     static void deleteHouse(ArrayList<House> arrayHouse){
         System.out.println("Do you know the number of the house you want to delete?\n1 - Yes\n0 - No");
         int button = enterNumInt();
         while(button < 0 || button > 1){
@@ -174,7 +132,7 @@ public class Main {
         System.out.println("Deletion completed successfully");
     }
 
-    public static void compare(ArrayList<House> arrayHouse) {
+     static void compare(ArrayList<House> arrayHouse) {
         while (true) {
             System.out.println("What will you compare?\n1 - Houses\n2 - Apartments in the house\n0 - Exit");
             int button = enterNumInt();
@@ -278,7 +236,7 @@ public class Main {
         }
     }
 
-    public static int enterNumInt(){
+     static int enterNumInt(){
         Scanner sc = new Scanner(System.in);
         int n = 0;
         while(sc.hasNext()){
@@ -293,21 +251,4 @@ public class Main {
         }
         return n;
     }
-
-    public static double enterNumDouble(){
-        Scanner sc = new Scanner(System.in);
-        double n = 0;
-        while(sc.hasNext()){
-            if(sc.hasNextDouble()){
-                n = sc.nextDouble();
-                break;
-            }
-            else {
-                System.out.println("Enter the number!");
-                sc.next();
-            }
-        }
-        return n;
-    }
-
 }
