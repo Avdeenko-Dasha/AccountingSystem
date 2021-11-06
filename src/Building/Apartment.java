@@ -1,4 +1,4 @@
-package building;
+package Building;
 
 /**
  * Class Apartment this is...
@@ -53,7 +53,7 @@ public class Apartment {
     }
 
     /**
-     * Method compares houses by area and number of residents
+     * Method compares apartments by area and number of residents
      * @param obj the object to compare with
      */
     public void compare(Object obj){
@@ -64,22 +64,35 @@ public class Apartment {
         else if(equals(obj))
             System.out.println("Apartment at the same");
         else {
+            double squareApartment2 = ((Apartment) obj).squareApartment;
+            int    numResidents2 = ((Apartment) obj).numResidents;
+            int    numApartment2 = ((Apartment) obj).numApartment;
 
-            if (squareApartment > ((Apartment) obj).squareApartment) {
-                System.out.println("The area of apartment " + numApartment + " is larger than the area of apartment " + ((Apartment) obj).numApartment);
-            } else if (squareApartment < ((Apartment) obj).squareApartment) {
-                System.out.println("The area of apartment " + numApartment + " is less than the area of apartment " + ((Apartment) obj).numApartment);
-            } else {
-                System.out.println("The area of apartment " + numApartment + " is equal to the area of apartment " + ((Apartment) obj).numApartment);
+            if (squareApartment > squareApartment2){
+                System.out.println("The area of the apartment " + numApartment +
+                        " is larger than the area of the apartment " + numApartment2);
+            } else if (squareApartment < squareApartment2) {
+                System.out.println("The area of the apartment " + numApartment +
+                        " is less than the area of the apartment " + numApartment2);
+            }else {
+                System.out.println("The area of the apartment " + numApartment +
+                        " is equal to the area of the apartment " + numApartment2);
             }
+            System.out.println("Apartment " + numApartment + " - " + squareApartment +
+                    "    Apartment " + numApartment2 + " - " + squareApartment2 + "\n");
 
-            if (numResidents > ((Apartment) obj).numResidents) {
-                System.out.println("The number of tenants in apartment " + numApartment + " is greater than the number of tenants in apartment " + ((Apartment) obj).numApartment);
-            } else if (numResidents < ((Apartment) obj).numResidents) {
-                System.out.println("The number of tenants in apartment " + numApartment + " is less than the number of tenants in apartment " + ((Apartment) obj).numApartment);
+            if (numResidents > numResidents2) {
+                System.out.println("The number of tenants in the apartment " + numApartment +
+                        " is greater than the number of tenants in the apartment " + numApartment2);
+            }else if (numResidents < numResidents2) {
+                System.out.println("The number of tenants in the apartment " + numApartment +
+                        " is less than the number of tenants in the apartment " + numApartment2);
             } else {
-                System.out.println("The number of tenants in apartment " + numApartment + " is equal than the number of tenants in apartment " + ((Apartment) obj).numApartment);
+                System.out.println("The number of tenants in the apartment " + numApartment +
+                        " is equal than the number of tenants in the apartment " + numApartment2);
             }
+            System.out.println("Apartment " + numApartment + " - " + numResidents +
+                    "    Apartment " + numApartment2 + " - " + numResidents2 + "\n");
         }
     }
 

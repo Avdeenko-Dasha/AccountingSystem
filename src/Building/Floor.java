@@ -1,4 +1,4 @@
-package building;
+package Building;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
@@ -16,6 +16,8 @@ public class Floor {
     private int numApartment = 0;
     /**ArrayList storing the structure of the floor*/
     private ArrayList<Apartment> floor;
+    /**ArrayList storing the are of apartments on the floors*/
+    public static ArrayList<Double> squareApartments = new ArrayList<>(0);
 
 
 
@@ -44,6 +46,13 @@ public class Floor {
 
     public void setNumApartment(int numApartment) {
         this.numApartment = numApartment;
+    }
+    public Apartment getApartment(int index){
+        for(int i = 0; i < numApartment; ++i){
+            if(floor.get(i).getNumApartment() == index)
+                return floor.get(i);
+        }
+        return floor.get(0);
     }
 
     /**
@@ -135,31 +144,55 @@ public class Floor {
         }
 
         public BuilderFloor methodOfCreation(String method){
-            if(method.toLowerCase(Locale.ROOT).equals("automatically")){
-                newFloor.floor = new ArrayList<>(newFloor.numApartment);
+            int numResidents = 0;
+            double square = 0;
+            newFloor.floor = new ArrayList<>(newFloor.numApartment);
+            if("automatically".equalsIgnoreCase(method)){
+                if(newFloor.getNumFloor()==1) {
+                    if (!squareApartments.isEmpty())
+                        squareApartments.clear();
 
-                double square = 30 + Math.random()*200;
-                int numResidents = (int)(Math.random()*5);
-
-                for(int i = 0; i < newFloor.numApartment; ++i){
-                    Apartment apartment = new Apartment.BuilderApartment().setSquareApartment(square).setNumResidents(numResidents).build();
-                    newFloor.floor.add(i, apartment);
-                    square = 30 + Math.random()*200;
-                    numResidents = (int)(Math.random()*5);
+                    for (int i = 0; i < newFloor.numApartment; ++i) {
+                        square = 30 + Math.random() * 200;
+                        numResidents = (int) (Math.random() * 5);
+                        Apartment apartment = new Apartment.BuilderApartment().setSquareApartment(square).setNumResidents(numResidents).build();
+                        newFloor.floor.add(i, apartment);
+                        squareApartments.add(square);
+                    }
                 }
-            } else if(method.toLowerCase(Locale.ROOT).equals("yourself")){
+                else {
+                    for (int i = 0; i < newFloor.numApartment; ++i) {
+                        numResidents = (int) (Math.random() * 5);
+                        Apartment apartment = new Apartment.BuilderApartment().setSquareApartment(squareApartments.get(i)).setNumResidents(numResidents).build();
+                        newFloor.floor.add(i, apartment);
+                    }
+                }
+            } else if("yourself".equalsIgnoreCase(method)){
+                if(newFloor.getNumFloor()==1){
+                    if(!squareApartments.isEmpty())
+                    squareApartments.clear();
 
-                newFloor.floor = new ArrayList<>(newFloor.numApartment);
+                    for(int i = 0; i < newFloor.numApartment; ++i){
+                        System.out.println("Apartment " + (i+1));
+                        System.out.print("Enter the area of apartment - ");
+                        square = enterNumDouble();
+                        squareApartments.add(square);
+                        System.out.print("Enter the number of tenants in the apartment - ");
+                        numResidents = enterNumInt();
 
-                for(int i = 0; i < newFloor.numApartment; ++i){
-                    System.out.println("Apartment " + i);
-                    System.out.print("Enter the area of apartment - ");
-                    double square = enterNumDouble();
-                    System.out.print("Enter the number of tenants in the apartment - ");
-                    int numResidents = enterNumInt();
+                       Apartment apartment = new Apartment.BuilderApartment().setSquareApartment(square).setNumResidents(numResidents).build();
+                       newFloor.floor.add(apartment);
+                    }
+                }
+                else {
+                    for(int i = 0; i < newFloor.numApartment; ++i) {
+                        System.out.println("Apartment " + (newFloor.numFloor * newFloor.numApartment - newFloor.numApartment + i + 1));
+                        System.out.print("Enter the number of tenants in the apartment - ");
+                        numResidents = enterNumInt();
 
-                    Apartment apartment = new Apartment.BuilderApartment().setSquareApartment(square).setNumResidents(numResidents).build();
-                    newFloor.floor.add(i, apartment);
+                        Apartment apartment = new Apartment.BuilderApartment().setSquareApartment(squareApartments.get(i)).setNumResidents(numResidents).build();
+                        newFloor.floor.add(apartment);
+                    }
                 }
             }
             return this;
