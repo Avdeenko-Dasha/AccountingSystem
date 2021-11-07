@@ -1,64 +1,31 @@
 package Building;
 import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Scanner;
 
-/**
- * Class House this is...
- * @author Avdeenko Dasha
- */
 public class House implements Instruments{
     /**Static variable that helps determine the house number*/
     private static int  staticNumHouse = 1;
     /**Variable that stores the house number*/
-    private int     numHouse = 0;
+    private int     numHouse;
     /**Variable that stores the number of floors in the house*/
-    private int     numFloor = 0;
-    /**Variable that stores the number of apartments in the house*/
-    private int     numApartment = 0;
-    /**Variable that stores the number of tenants in the house*/
-    private int     numOfTenants = 0;
-    /**Variable that stores area of the house*/
-    private double     squareHouse = 0;
+    private int numFloor;
     /**ArrayList storing the structure of the house*/
     private ArrayList<Floor> house;
-
-
 
     House()
     {
         numHouse = staticNumHouse;
         staticNumHouse++;
-        numFloor = 0;
-        numApartment = 0;
-        numOfTenants = 0;
-        squareHouse = 0;
         house = new ArrayList<Floor>(0);
+        numFloor = 0;
         Floor floor = new Floor();
         floor.setStaticNumFloor(1);
         Apartment apartment = new Apartment();
         apartment.setStaticNumApartment(1);
     }
 
-    public int getNumFloor() {
-        return numFloor;
-    }
+    public int getNumFloor() { return house.size(); }
 
-    public int getNumApartment() {
-        return numApartment;
-    }
-
-    public int getNumHouse() {
-        return numHouse;
-    }
-
-    public int getNumOfTenants() {
-        return numOfTenants;
-    }
-
-    public double getSquareHouse() {
-        return squareHouse;
-    }
+    public int getNumHouse() { return numHouse; }
 
     public Apartment getApartment(int index){
         int numApartmentFloor = house.get(0).getNumApartment();
@@ -71,16 +38,19 @@ public class House implements Instruments{
         return house.get(numFloorApartment - 1).getApartment(index);
     }
 
+    public int countApartments(){ return house.get(0).getNumApartment() * house.size(); }
+
+    public void addFloor(Floor floor){ house.add(floor); }
+
     /**
      * Method calculateArea calculates the area of the house
      */
     public double calculateArea(){
         double square = 0;
-        for(int i = 0; i < numFloor; ++i){
-            square += house.get(i).calculateArea();
+        for(Floor floor : house){
+            square += floor.calculateArea();
         }
-        square = Math.round(square * 100.0) / 100.0;
-        return square;
+        return Math.round(square * 100.0) / 100.0;
     }
 
     /**
@@ -88,19 +58,19 @@ public class House implements Instruments{
      */
     public int countTenants(){
         int tenants = 0;
-        for(int i = 0; i < numFloor; ++i){
-            tenants += house.get(i).countTenants();
+        for(Floor floor : house){
+            tenants += floor.countTenants();
         }
         return tenants;
     }
 
     public String toString() {
         StringBuilder str = new StringBuilder("House " + numHouse + ":" + "\n");
-        for(int i = 0; i < numFloor; ++i){
-            str.append(house.get(i).toString());
+        for(Floor floor : house){
+            str.append(floor.toString());
             str.append("\n");
         }
-        str.append("Square - " + getSquareHouse() + "\nNumber of tenants - " + getNumOfTenants() + "\n");
+        str.append("Square - " + calculateArea() + "\nNumber of tenants - " + countTenants() + "\n");
         return str.toString();
     }
 
@@ -121,7 +91,7 @@ public class House implements Instruments{
             double squareHouse2 = ((House) obj).calculateArea();
             int    numResidents1 = countTenants();
             int    numResidents2 = ((House) obj).countTenants();
-            int    numFloor2 = ((House) obj).numFloor;
+            int    numFloor2 = ((House) obj).house.size();
             int    numHouse2 = ((House) obj).numHouse;
 
             if (squareHouse1 > squareHouse2) {
@@ -150,11 +120,11 @@ public class House implements Instruments{
             System.out.println("House " + numHouse + " - " + numResidents1 +
                     "    House " + numHouse2 + " - " + numResidents2 + "\n");
 
-            if(numFloor > numFloor2){
+            if(house.size() > numFloor2){
                 System.out.println("The number of floors in the house " + numHouse +
                         " is greater than the number of floors in the house " + numHouse2);
             }
-            else if (numFloor < numFloor2){
+            else if (house.size() < numFloor2){
                 System.out.println("The number of floors in the house " + numHouse +
                         " is less than the number of floors in the house " + numHouse2);
             }
@@ -162,17 +132,17 @@ public class House implements Instruments{
                 System.out.println("The number of floors in the house " + numHouse +
                         " is equal than the number of floors in the house " + numHouse2);
             }
-            System.out.println("House " + numHouse + " - " + numFloor +
+            System.out.println("House " + numHouse + " - " + house.size() +
                     "    House " + numHouse2 + " - " + numFloor2 + "\n");
         }
     }
 
     public boolean equals(Object obj) {
         if(!(obj instanceof House)) return false;
-        if(numFloor==0 || ((House) obj).numFloor==0) return false;
-        if(numFloor == ((House) obj).numFloor)
+        if(house.size()==0 || ((House) obj).house.size()==0) return false;
+        if(house.size() == ((House) obj).house.size())
         {
-            for(int i = 0; i < numFloor; ++i){
+            for(int i = 0; i < house.size(); ++i){
                 if(!house.get(i).equals(((House) obj).house.get(i)))
                     return false;
             }
@@ -191,31 +161,31 @@ public class House implements Instruments{
             newHouse.numFloor = numFloor;
             return this;
         }
-        public BuilderHouse methodOfCreation(String method){
-            int sumApartment = 0;
-            int numApartment = 0;
-            newHouse.house = new ArrayList<>(newHouse.numFloor);
 
+        public BuilderHouse methodOfCreation(String method){
+            int numApartment = 0;
+            newHouse.house = new ArrayList<>();
             if("yourself".equalsIgnoreCase(method)){
                 System.out.print("Enter the number of apartments on the floor - ");
                 numApartment = Instruments.enterNumInt();
                 for(int i = 0; i < newHouse.numFloor; ++i){
-                    sumApartment += numApartment;
-                    Floor floor = new Floor.BuilderFloor().setNumApartment(numApartment).methodOfCreation("yourself").build();
+                    Floor floor = new Floor.BuilderFloor()
+                            .setNumApartment(numApartment)
+                            .methodOfCreation("yourself")
+                            .build();
                     newHouse.house.add(floor);
                 }
             }else if("automatically".equalsIgnoreCase(method))
             {
                 numApartment = (int)(2 + Math.random() * 4);
                 for(int i = 0; i < newHouse.numFloor; ++i){
-                    sumApartment += numApartment;
-                    Floor floor = new Floor.BuilderFloor().setNumApartment(numApartment).methodOfCreation("automatically").build();
+                    Floor floor = new Floor.BuilderFloor()
+                            .setNumApartment(numApartment)
+                            .methodOfCreation("automatically")
+                            .build();
                     newHouse.house.add(floor);
                 }
             }
-            newHouse.numApartment = sumApartment;
-            newHouse.squareHouse = newHouse.calculateArea();
-            newHouse.numOfTenants = newHouse.countTenants();
             return this;
         }
 
@@ -223,5 +193,4 @@ public class House implements Instruments{
             return newHouse;
         }
     }
-
 }

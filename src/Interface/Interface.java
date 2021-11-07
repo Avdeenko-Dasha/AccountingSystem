@@ -8,6 +8,7 @@ public class Interface implements Tools {
         ArrayList<House> arrayHouses = new ArrayList<>(0);
         System.out.println("Welcome to the accounting system!");
         while (true) {
+            System.out.println("---------------------------Menu----------------------------");
             System.out.println("1 - Create a house\n2 - Display information about the house\n3 - All created houses" +
                     "\n4 - Delete a house\n" + "5 - Compare objects\n0 - Exit");
             System.out.print("Enter the number of the operation you want to perform - ");
@@ -18,8 +19,6 @@ public class Interface implements Tools {
                 System.out.print("There is no such operation\nTry again - ");
                 button = Tools.enterNumInt();
             }
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
             if (button == 0)
                 break;
             switch (button) {
@@ -50,6 +49,7 @@ public class Interface implements Tools {
             }
         }
         System.out.println("Goodbye. Good luck!");
+        System.out.println("----------------------------------------------------------");
     }
 }
 

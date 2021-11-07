@@ -2,69 +2,42 @@ package Building;
 
 import java.util.ArrayList;
 
-/**
- * Class Apartment this is...
- * @author Avdeenko Dasha
- */
 public class Apartment implements Instruments{
     /**Static variable that helps determine the apartment number*/
     private static int staticNumApartment = 1;
     /**Variable that stores the apartment number*/
     private int numApartment = 0;
-    /**Variable that stores the area of the apartment*/
-    private double squareApartment = 0;
     /**Variable that stores the number of residents in the apartment*/
     private int numResidents = 0;
-    /**Variable that stores the number of rooms in the apartment*/
-    private int numRoom = 0;
     /**Variable that stores the number of apartments per floor*/
     private int numApartmentPerFloor = 0;
+    /**Variable that stores the number of apartment in the floor*/
+    private int numRoom = 0;
     /**ArrayList storing the structure of the apartment*/
     private ArrayList<Room> apartment;
     /**ArrayList storing the area of rooms on the apartments*/
     public static ArrayList<ArrayList<Double>> squareRooms = new ArrayList<>(0);
 
-
-
-
     Apartment(){
         setNumApartment(staticNumApartment);
         staticNumApartment++;
         setNumResidents(0);
-        setNumRoom(0);
+        numRoom = 0;
         apartment = new ArrayList<>(0);
         numApartmentPerFloor = 0;
     }
 
-    public static void setStaticNumApartment(int staticNumApartment) {
-        Apartment.staticNumApartment = staticNumApartment;
-    }
+    public static void setStaticNumApartment(int staticNumApartment) { Apartment.staticNumApartment = staticNumApartment; }
 
-    public double getSquareApartment() {
-        return squareApartment;
-    }
+    public int getNumResidents() { return numResidents; }
 
-    public int getNumResidents() {
-        return numResidents;
-    }
+    public void setNumResidents(int numResidents) { this.numResidents = numResidents; }
 
-    public Apartment setNumResidents(int numResidents) {
-        this.numResidents = numResidents;
-        return null;
-    }
+    public int getNumApartment() { return numApartment; }
 
-    public int getNumApartment() {
-        return numApartment;
-    }
+    public void setNumApartment(int numApartment) { this.numApartment = numApartment; }
 
-    public void setNumApartment(int numApartment) {
-        this.numApartment = numApartment;
-    }
-
-    public void setNumRoom(int numRoom) {
-        this.numRoom = numRoom;
-    }
-
+    public void addRoom(Room room){ apartment.add(room); }
 
     /**
      * Method compares apartments by area and number of residents
@@ -73,28 +46,30 @@ public class Apartment implements Instruments{
     public void compare(Object obj){
         if(!(obj instanceof Apartment))
             System.out.println("Error! Trying to compare different objects");
-        else if(squareApartment ==0 || ((Apartment) obj).squareApartment ==0)
+        else if(calculateArea() == 0 || ((Apartment) obj).calculateArea() == 0)
             System.out.println("Error! Empty object");
         else if(equals(obj))
             System.out.println("Apartment at the same");
         else {
-            double squareApartment2 = ((Apartment) obj).squareApartment;
+            double squareApartment1 = calculateArea();
+            double squareApartment2 = ((Apartment) obj).calculateArea();
             int    numResidents2 = ((Apartment) obj).numResidents;
             int    numApartment2 = ((Apartment) obj).numApartment;
-            int    numRoom2 = ((Apartment) obj).numRoom;
+            int    numRoom1 = apartment.size();
+            int    numRoom2 = ((Apartment) obj).apartment.size();
 
-            if (squareApartment > squareApartment2){
+            if (squareApartment1 > squareApartment2){
                 System.out.println("The area of the apartment " + numApartment +
                         " is larger than the area of the apartment " + numApartment2);
-            } else if (squareApartment < squareApartment2) {
+            } else if (squareApartment1 < squareApartment2) {
                 System.out.println("The area of the apartment " + numApartment +
                         " is less than the area of the apartment " + numApartment2);
             }else {
                 System.out.println("The area of the apartment " + numApartment +
                         " is equal to the area of the apartment " + numApartment2);
             }
-            System.out.println("Apartment " + numApartment + " - " + squareApartment +
-                    "    Apartment " + numApartment2 + " - " + squareApartment2 + "\n");
+            System.out.println("Apartment " + numApartment + " - " + String.format("%.2f", squareApartment1)  +
+                    "    Apartment " + numApartment2 + " - " + String.format("%.2f", squareApartment2) + "\n");
 
             if (numResidents > numResidents2) {
                 System.out.println("The number of tenants in the apartment " + numApartment +
@@ -109,41 +84,47 @@ public class Apartment implements Instruments{
             System.out.println("Apartment " + numApartment + " - " + numResidents +
                     "    Apartment " + numApartment2 + " - " + numResidents2 + "\n");
 
-            if (numRoom > numRoom2) {
+            if (numRoom1 > numRoom2) {
                 System.out.println("The number of rooms in the apartment " + numApartment +
                         " is greater than the number of rooms in the apartment " + numApartment2);
-            }else if (numRoom < numRoom2) {
+            }else if (numRoom1 < numRoom2) {
                 System.out.println("The number of rooms in the apartment " + numApartment +
                         " is less than the number of rooms in the apartment " + numApartment2);
             } else {
                 System.out.println("The number of rooms in the apartment " + numApartment +
                         " is equal than the number of rooms in the apartment " + numApartment2);
             }
-            System.out.println("Apartment " + numApartment + " - " + numRoom +
+            System.out.println("Apartment " + numApartment + " - " + numRoom1 +
                     "    Apartment " + numApartment2 + " - " + numRoom2 + "\n");
         }
     }
 
     public double calculateArea(){
         double square = 0;
-        for(int i = 0; i < numRoom; ++i){
-            square += apartment.get(i).getSquareRoom();
+        for(Room room : apartment){
+            square += room.getSquareRoom();
         }
         return square;
     }
 
     public boolean equals(Object obj) {
         if(!(obj instanceof Apartment)) return false;
-        if(squareApartment == 0 || ((Apartment) obj).squareApartment == 0) return false;
-        return (squareApartment == ((Apartment) obj).squareApartment &&
-                numResidents == ((Apartment) obj).numResidents &&
-                numRoom == ((Apartment) obj).numRoom);
+        if(calculateArea() == 0 || ((Apartment) obj).calculateArea() == 0) return false;
+        if(apartment.size() == ((Apartment) obj).apartment.size()) {
+            if(numResidents == ((Apartment) obj).numResidents) {
+                for (int i = 0; i < apartment.size(); ++i) {
+                    if (!apartment.get(i).equals(((Apartment) obj).apartment.get(i)))
+                        return false;
+                }
+                return true;
+            } return false;
+        }else return false;
     }
 
     public String toString() {
-        StringBuilder str = new StringBuilder("Apartment - " + getNumApartment() + " Square - " + String.format("%.2f", squareApartment) + " Residents - " + getNumResidents() + "\n");
-        for(int i = 0; i < numRoom; ++i){
-            str.append(apartment.get(i).toString());
+        StringBuilder str = new StringBuilder("Apartment - " + getNumApartment() + " Square - " + String.format("%.2f", calculateArea()) + " Residents - " + getNumResidents() + "\n");
+        for(Room room: apartment){
+            str.append(room.toString());
             str.append("\n");
         }
         return str.toString();
@@ -173,7 +154,6 @@ public class Apartment implements Instruments{
 
         public Apartment.BuilderApartment methodOfCreation(String method) {
             double square = 0;
-            newApartment.apartment = new ArrayList<>(newApartment.numRoom);
             if ("automatically".equalsIgnoreCase(method)) {
                 if(newApartment.getNumApartment()==1){
                     if (!squareRooms.isEmpty())
@@ -183,7 +163,9 @@ public class Apartment implements Instruments{
                     ArrayList<Double> squareRoom = new ArrayList<>();
                     for (int i = 0; i < newApartment.numRoom; ++i) {
                         square = 10 + Math.random() * 70;
-                        Room room = new Room.BuilderRoom().setSquareRoom(square).build();
+                        Room room = new Room.BuilderRoom()
+                                .setSquareRoom(square)
+                                .build();
                         newApartment.apartment.add(room);
                         squareRoom.add(square);
                     }
@@ -195,7 +177,9 @@ public class Apartment implements Instruments{
                             numApartment-=newApartment.numApartmentPerFloor;
                         }
                         numApartment += newApartment.numApartmentPerFloor;
-                        Room room = new Room.BuilderRoom().setSquareRoom(squareRooms.get(numApartment-1).get(i)).build();
+                        Room room = new Room.BuilderRoom()
+                                .setSquareRoom(squareRooms.get(numApartment-1).get(i))
+                                .build();
                         newApartment.apartment.add(room);
                     }
                 }
@@ -210,7 +194,9 @@ public class Apartment implements Instruments{
                         System.out.print("Enter the area of room - ");
                         square = Instruments.enterNumDouble();
                         squareRoom.add(square);
-                        Room room = new Room.BuilderRoom().setSquareRoom(square).build();
+                        Room room = new Room.BuilderRoom()
+                                .setSquareRoom(square)
+                                .build();
                         newApartment.apartment.add(room);
                     }
                     squareRooms.add(squareRoom);
@@ -221,12 +207,13 @@ public class Apartment implements Instruments{
                             numApartment-=newApartment.numApartmentPerFloor;
                         }
                         numApartment += newApartment.numApartmentPerFloor;
-                        Room room = new Room.BuilderRoom().setSquareRoom(squareRooms.get(numApartment-1).get(i)).build();
+                        Room room = new Room.BuilderRoom()
+                                .setSquareRoom(squareRooms.get(numApartment-1).get(i))
+                                .build();
                         newApartment.apartment.add(room);
                     }
                 }
             }
-            newApartment.squareApartment = newApartment.calculateArea();
             return this;
         }
 

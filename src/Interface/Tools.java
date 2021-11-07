@@ -22,12 +22,18 @@ interface Tools {
                 case 1:
                     System.out.print("Enter the number of floors - ");
                     numFloor = enterNumInt();
-                    House newHouse = new House.BuilderHouse().setNumFloor(numFloor).methodOfCreation("yourself").build();
+                    House newHouse = new House.BuilderHouse()
+                            .setNumFloor(numFloor)
+                            .methodOfCreation("yourself")
+                            .build();
                     arrayHouse.add(newHouse);
                     break;
                 case 2:
                     numFloor = (int) (2 + Math.random() * 10);
-                    House newHouses = new House.BuilderHouse().setNumFloor(numFloor).methodOfCreation("automatically").build();
+                    House newHouses = new House.BuilderHouse()
+                            .setNumFloor(numFloor)
+                            .methodOfCreation("automatically")
+                            .build();
                     arrayHouse.add(newHouses);
                     break;
             }
@@ -60,6 +66,7 @@ interface Tools {
             index = enterNumInt();
         }
         while(true) {
+            System.out.println("----------------------------------------------------------");
             System.out.println("What information do you want to get?");
             System.out.println("1 - Number of floors\n2 - Number of apartments\n3 - Number of tenants");
             System.out.println("4 - Total area of the house\n5 - All information about each apartment\n0 - Exit");
@@ -76,39 +83,45 @@ interface Tools {
 
             switch(button){
                 case 1:
+                    System.out.println("----------------------------------------------------------");
                     System.out.println("Number of floors - " + arrayHouse.get(index - 1).getNumFloor());
                     break;
                 case 2:
-                    System.out.println("Number of apartments - " + arrayHouse.get(index - 1).getNumApartment());
+                    System.out.println("----------------------------------------------------------");
+                    System.out.println("Number of apartments - " + arrayHouse.get(index - 1).countApartments());
                     break;
                 case 3:
-                    System.out.println("Number of tenants - " + arrayHouse.get(index - 1).getNumOfTenants());
+                    System.out.println("----------------------------------------------------------");
+                    System.out.println("Number of tenants - " + arrayHouse.get(index - 1).countTenants());
                     break;
                 case 4:
-                    System.out.println("Total area of the house - " + arrayHouse.get(index - 1).getSquareHouse());
+                    System.out.println("----------------------------------------------------------");
+                    System.out.println("Total area of the house - " + arrayHouse.get(index - 1).calculateArea());
                     break;
                 case 5:
+                    System.out.println("----------------------------------------------------------");
                     System.out.println("All information\n" + arrayHouse.get(index - 1).toString());
                     break;
             }
+            System.out.println("----------------------------------------------------------");
             System.out.println("Do you want to display any more information?\n1 - Yes\n0 - No");
             button = enterNumInt();
             if(button == 0)
                 break;
         }
-        System.out.println();
     }
 
      static void outputAllHouse(ArrayList<House> arrayHouse){
+         System.out.println("----------------------------------------------------------");
         for(int i = 0; i < arrayHouse.size(); ++i){
             System.out.print("House number - " + arrayHouse.get(i).getNumHouse());
-            System.out.print("   Square - " + String.format("%.2f", arrayHouse.get(i).getSquareHouse()));
-            System.out.println("   Number of tenants - " + arrayHouse.get(i).getNumOfTenants());
+            System.out.print("   Square - " + String.format("%.2f", arrayHouse.get(i).calculateArea()));
+            System.out.println("   Number of tenants - " + arrayHouse.get(i).countTenants());
         }
-        System.out.println();
     }
 
      static void deleteHouse(ArrayList<House> arrayHouse){
+        System.out.println("----------------------------------------------------------");
         System.out.println("Do you know the number of the house you want to delete?\n1 - Yes\n0 - No");
         int button = enterNumInt();
         while(button < 0 || button > 1){
@@ -134,6 +147,7 @@ interface Tools {
 
      static void compare(ArrayList<House> arrayHouse) {
         while (true) {
+            System.out.println("----------------------------------------------------------");
             System.out.println("What will you compare?\n1 - Houses\n2 - Apartments in the house\n0 - Exit");
             int button = enterNumInt();
             if (button == 0)
@@ -172,6 +186,7 @@ interface Tools {
                         System.out.print("There is no house with this number, try again - ");
                         index2 = enterNumInt();
                     }
+                    System.out.println("----------------------------------------------------------");
                     arrayHouse.get(index1 - 1).compare(arrayHouse.get(index2 - 1));
                 } else System.out.println("Not enough houses to compare");
             } else {
@@ -194,7 +209,7 @@ interface Tools {
                     System.out.print("There is no house with this number, try again - ");
                     index = enterNumInt();
                 }
-                if (arrayHouse.get(index - 1).getNumApartment() < 2)
+                if (arrayHouse.get(index - 1).countApartments() < 2)
                     System.out.println("There are not enough apartments in the house for comparison");
                 else {
                     System.out.println("Do you know the number of the apartments\n1 - Yes\n0 - No");
@@ -205,7 +220,7 @@ interface Tools {
                     }
                     if (button == 0) {
                         System.out.println("Number of existing apartments:");
-                        for (int i = 0; i < arrayHouse.get(index - 1).getNumApartment(); ++i) {
+                        for (int i = 0; i < arrayHouse.get(index - 1).countApartments(); ++i) {
                             System.out.print(i + 1 + " ");
                         }
                         System.out.println();
@@ -215,13 +230,13 @@ interface Tools {
                     do {
                         System.out.print("Enter the number of the first apartment - ");
                         index1 = enterNumInt();
-                        while (index1 <= 0 || index1 > arrayHouse.get(index - 1).getNumApartment()) {
+                        while (index1 <= 0 || index1 > arrayHouse.get(index - 1).countApartments()) {
                             System.out.print("There is no apartment with this number, try again - ");
                             index1 = enterNumInt();
                         }
                         System.out.print("Enter the number of the second apartment - ");
                         index2 = enterNumInt();
-                        while (index2 <= 0 || index2 > arrayHouse.get(index-1).getNumApartment()) {
+                        while (index2 <= 0 || index2 > arrayHouse.get(index-1).countApartments()) {
                             System.out.print("There is no apartment with this number, try again - ");
                             index2 = enterNumInt();
                         }
@@ -229,10 +244,10 @@ interface Tools {
                             System.out.println("It is impossible to compare identical apartments. Try again");
                         }
                     } while (index1 == index2);
+                    System.out.println("----------------------------------------------------------");
                     arrayHouse.get(index - 1).getApartment(index1).compare(arrayHouse.get(index - 1).getApartment(index2));
                 }
             }
-            System.out.println();
         }
     }
 
