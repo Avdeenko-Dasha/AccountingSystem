@@ -44,7 +44,10 @@ public class Interface implements Tools {
                         System.out.println("You don't have any homes created!");
                     break;
                 case 5:
-                    Tools.compare(arrayHouses);
+                    if (arrayHouses.size() != 0)
+                        Tools.compare(arrayHouses);
+                    else
+                        System.out.println("You don't have any homes created!");
                     break;
             }
         }
