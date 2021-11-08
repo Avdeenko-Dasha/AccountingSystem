@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class House implements Instruments{
     /**Static variable that helps determine the house number*/
-    private static int  staticNumHouse = 1;
+    //private static int  staticNumHouse = 1;
     /**Variable that stores the house number*/
     private int     numHouse;
     /**Variable that stores the number of floors in the house*/
@@ -13,10 +13,11 @@ public class House implements Instruments{
 
     House()
     {
-        numHouse = staticNumHouse;
-        staticNumHouse++;
+        //numHouse = staticNumHouse;
+        //staticNumHouse++;
         house = new ArrayList<Floor>(0);
         numFloor = 0;
+        numHouse = 0;
         Floor floor = new Floor();
         floor.setStaticNumFloor(1);
         Apartment apartment = new Apartment();
@@ -159,6 +160,11 @@ public class House implements Instruments{
 
         public BuilderHouse setNumFloor(int numFloor){
             newHouse.numFloor = numFloor;
+            return this;
+        }
+
+        public BuilderHouse setNumHouse(int numHouse){
+            newHouse.numHouse = numHouse;
             return this;
         }
 
