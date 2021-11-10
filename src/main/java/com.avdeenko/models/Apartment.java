@@ -1,4 +1,4 @@
-package Building;
+package com.avdeenko.models;
 
 import java.util.ArrayList;
 

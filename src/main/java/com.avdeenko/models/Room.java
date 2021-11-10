@@ -1,4 +1,4 @@
-package Building;
+package com.avdeenko.models;
 
 public class Room {
     /**Variable that stores the area of the room*/

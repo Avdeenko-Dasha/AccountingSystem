@@ -1,11 +1,11 @@
-package Interface;
+package com.avdeenko.userinterface;
 
-import Building.House;
+import com.avdeenko.models.House;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-interface Tools {
+public interface Tools {
     static void createNewHouse(ArrayList<House> arrayHouse) {
         while (true) {
             System.out.println("How do you want to create a house?\n1 - Yourself\n2 - Automatically\n0 - Exit");
@@ -25,7 +25,7 @@ interface Tools {
                     System.out.print("Enter the house number - ");
                     numHouse = enterNumInt();
                     index = findHouse(numHouse, arrayHouse);
-                    while(index >= 0 && index < arrayHouse.size()){
+                    while (index >= 0 && index < arrayHouse.size()) {
                         System.out.print("House with this number already exists. Try again - ");
                         numHouse = enterNumInt();
                         index = findHouse(numHouse, arrayHouse);
@@ -42,7 +42,7 @@ interface Tools {
                 case 2:
                     numHouse = (int) (2 + Math.random() * 50);
                     index = findHouse(numHouse, arrayHouse);
-                    while(index >= 0 && index < arrayHouse.size()){
+                    while (index >= 0 && index < arrayHouse.size()) {
                         numHouse = (int) (2 + Math.random() * 50);
                         index = findHouse(numHouse, arrayHouse);
                     }
@@ -57,55 +57,55 @@ interface Tools {
             }
             System.out.println("Do you want to make another house?\n1 - Yes\n0 - No");
             button = enterNumInt();
-            while(button < 0 || button > 1){
+            while (button < 0 || button > 1) {
                 System.out.print("There is no such operation\nTry again - ");
                 button = enterNumInt();
             }
-            if(button == 0)
+            if (button == 0)
                 break;
         }
         System.out.println();
     }
 
-     static void outputHouse(ArrayList<House> arrayHouse){
+    static void outputHouse(ArrayList<House> arrayHouse) {
         System.out.println("Do you know the number of the house you want to get information about?\n1 - Yes\n0 - No");
         int button = enterNumInt();
-        while(button < 0 || button > 1){
+        while (button < 0 || button > 1) {
             System.out.print("There is no such operation\nTry again - ");
             button = enterNumInt();
         }
-        if(button == 0){
+        if (button == 0) {
             System.out.println("Number of existing houses:");
-            for(int i = 0; i < arrayHouse.size(); ++i){
-                System.out.print(arrayHouse.get(i).getNumHouse()+" ");
+            for (int i = 0; i < arrayHouse.size(); ++i) {
+                System.out.print(arrayHouse.get(i).getNumHouse() + " ");
             }
             System.out.println();
         }
         System.out.print("Enter the number of the house you want to get information about - ");
-         button = enterNumInt();
-         int index = findHouse(button, arrayHouse);
-         while (index < 0 || index > arrayHouse.size()) {
-             System.out.print("There is no house with this number, try again - ");
-             button = enterNumInt();
-             index = findHouse(button, arrayHouse);
-         }
-        while(true) {
+        button = enterNumInt();
+        int index = findHouse(button, arrayHouse);
+        while (index < 0 || index > arrayHouse.size()) {
+            System.out.print("There is no house with this number, try again - ");
+            button = enterNumInt();
+            index = findHouse(button, arrayHouse);
+        }
+        while (true) {
             System.out.println("----------------------------------------------------------");
             System.out.println("What information do you want to get?");
             System.out.println("1 - Number of floors\n2 - Number of apartments\n3 - Number of tenants");
             System.out.println("4 - Total area of the house\n5 - All information about each apartment\n0 - Exit");
             System.out.print("Enter the number of the operation you want to perform - ");
             button = enterNumInt();
-            if(button == 0)
+            if (button == 0)
                 break;
-            while(button < 0 || button >= 6){
+            while (button < 0 || button >= 6) {
                 System.out.print("There is no such operation\nTry again - ");
                 button = enterNumInt();
             }
-            if(button == 0)
+            if (button == 0)
                 break;
 
-            switch(button){
+            switch (button) {
                 case 1:
                     System.out.println("----------------------------------------------------------");
                     System.out.println("Number of floors - " + arrayHouse.get(index).getNumFloor());
@@ -130,52 +130,52 @@ interface Tools {
             System.out.println("----------------------------------------------------------");
             System.out.println("Do you want to display any more information?\n1 - Yes\n0 - No");
             button = enterNumInt();
-            while(button < 0 || button > 1){
+            while (button < 0 || button > 1) {
                 System.out.print("There is no such operation\nTry again - ");
                 button = enterNumInt();
             }
-            if(button == 0)
+            if (button == 0)
                 break;
         }
     }
 
-     static void outputAllHouse(ArrayList<House> arrayHouse){
-         System.out.println("----------------------------------------------------------");
-        for(int i = 0; i < arrayHouse.size(); ++i){
+    static void outputAllHouse(ArrayList<House> arrayHouse) {
+        System.out.println("----------------------------------------------------------");
+        for (int i = 0; i < arrayHouse.size(); ++i) {
             System.out.print("House number - " + arrayHouse.get(i).getNumHouse());
             System.out.print("   Square - " + String.format("%.2f", arrayHouse.get(i).calculateArea()));
             System.out.println("   Number of tenants - " + arrayHouse.get(i).countTenants());
         }
     }
 
-     static void deleteHouse(ArrayList<House> arrayHouse){
+    static void deleteHouse(ArrayList<House> arrayHouse) {
         System.out.println("----------------------------------------------------------");
         System.out.println("Do you know the number of the house you want to delete?\n1 - Yes\n0 - No");
         int button = enterNumInt();
-        while(button < 0 || button > 1){
+        while (button < 0 || button > 1) {
             System.out.print("There is no such operation\nTry again - ");
             button = enterNumInt();
         }
-        if(button == 0){
+        if (button == 0) {
             System.out.println("Number of existing houses:");
-            for(int i = 0; i < arrayHouse.size(); ++i){
-                System.out.print(arrayHouse.get(i).getNumHouse()+" ");
+            for (int i = 0; i < arrayHouse.size(); ++i) {
+                System.out.print(arrayHouse.get(i).getNumHouse() + " ");
             }
             System.out.println();
         }
         System.out.print("Enter the house number - ");
-         button = enterNumInt();
-         int index = findHouse(button, arrayHouse);
-         while (index < 0 || index > arrayHouse.size()) {
-             System.out.print("There is no house with this number, try again - ");
-             button = enterNumInt();
-             index = findHouse(button, arrayHouse);
-         }
+        button = enterNumInt();
+        int index = findHouse(button, arrayHouse);
+        while (index < 0 || index > arrayHouse.size()) {
+            System.out.print("There is no house with this number, try again - ");
+            button = enterNumInt();
+            index = findHouse(button, arrayHouse);
+        }
         arrayHouse.remove(index);
         System.out.println("Deletion completed successfully");
     }
 
-     static void compare(ArrayList<House> arrayHouse) {
+    static void compare(ArrayList<House> arrayHouse) {
         while (true) {
             System.out.println("----------------------------------------------------------");
             System.out.println("What will you compare?\n1 - Houses\n2 - Apartments in the house\n0 - Exit");
@@ -287,26 +287,25 @@ interface Tools {
         }
     }
 
-    static int findHouse(int numHouse, ArrayList<House> houses){
+    static int findHouse(int numHouse, ArrayList<House> houses) {
         int index = 0;
-        while(index < houses.size()){
-            if(houses.get(index).getNumHouse() == numHouse){
+        while (index < houses.size()) {
+            if (houses.get(index).getNumHouse() == numHouse) {
                 return index;
             }
             index += 1;
         }
-        return houses.size()+1;
+        return houses.size() + 1;
     }
 
-    static int enterNumInt(){
+    static int enterNumInt() {
         Scanner sc = new Scanner(System.in);
         int n = 0;
-        while(sc.hasNext()){
-            if(sc.hasNextInt()){
+        while (sc.hasNext()) {
+            if (sc.hasNextInt()) {
                 n = sc.nextInt();
                 break;
-            }
-            else {
+            } else {
                 System.out.println("Enter the number!");
                 sc.next();
             }

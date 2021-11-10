@@ -1,4 +1,4 @@
-package Building;
+package com.avdeenko.models;
 
 import org.junit.jupiter.api.Test;
 
@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ApartmentTest {
 
     @Test
-    void calculateAreaTest() {
+    void calculateArea() {
         Room room1 = new Room();
         room1.setSquareRoom(13.2);
         Room room2 = new Room();

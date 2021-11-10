@@ -1,14 +1,13 @@
-package Building;
+package com.avdeenko.models;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import static org.junit.jupiter.api.Assertions.*;
 
 class FloorTest {
 
     @Test
-    void calculateAreaTest() {
+    void calculateArea() {
         Room room1 = new Room();
         room1.setSquareRoom(13.2);
         Room room2 = new Room();
@@ -31,7 +30,7 @@ class FloorTest {
     }
 
     @Test
-    void countTenantsTest() {
+    void countTenants() {
         Apartment apartment1 = new Apartment();
         apartment1.setNumResidents(4);
         Apartment apartment2 = new Apartment();

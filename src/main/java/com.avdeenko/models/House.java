@@ -1,9 +1,8 @@
-package Building;
+package com.avdeenko.models;
+
 import java.util.ArrayList;
 
 public class House implements Instruments{
-    /**Static variable that helps determine the house number*/
-    //private static int  staticNumHouse = 1;
     /**Variable that stores the house number*/
     private int     numHouse;
     /**Variable that stores the number of floors in the house*/
@@ -13,9 +12,7 @@ public class House implements Instruments{
 
     House()
     {
-        //numHouse = staticNumHouse;
-        //staticNumHouse++;
-        house = new ArrayList<Floor>(0);
+        house = new ArrayList<>(0);
         numFloor = 0;
         numHouse = 0;
         Floor floor = new Floor();
