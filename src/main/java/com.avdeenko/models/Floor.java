@@ -1,4 +1,5 @@
-package Building;
+package com.avdeenko.models;
+
 import java.util.ArrayList;
 
 public class Floor implements Instruments{
@@ -124,7 +125,7 @@ public class Floor implements Instruments{
                                 .setNumApartmentPerFloor(newFloor.numApartment)
                                 .methodOfCreation("automatically")
                                 .build();
-                       newFloor.floor.add(i, apartment);
+                        newFloor.floor.add(i, apartment);
                     }
                 }
             } else if ("yourself".equalsIgnoreCase(method)) {

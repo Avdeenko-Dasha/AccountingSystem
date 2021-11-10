@@ -1,9 +1,8 @@
-package Building;
+package com.avdeenko.models;
 
 import java.util.Scanner;
 
 public interface Instruments {
-
     static int enterNumInt(){
         Scanner sc = new Scanner(System.in);
         int n = 0;
