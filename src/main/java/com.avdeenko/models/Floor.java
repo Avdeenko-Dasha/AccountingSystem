@@ -1,7 +1,10 @@
 package com.avdeenko.models;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 
+@Data
 public class Floor implements Instruments{
     /**Static variable that helps determine the floor number*/
     private static int staticNumFloor = 1;
@@ -22,12 +25,6 @@ public class Floor implements Instruments{
     }
 
     public static void setStaticNumFloor(int staticNumFloor) { Floor.staticNumFloor = staticNumFloor; }
-
-    public int getNumFloor() { return numFloor; }
-
-    public int getNumApartment(){ return floor.size(); }
-
-    public void setNumFloor(int numFloor) { this.numFloor = numFloor; }
 
     public Apartment getApartment(int index){
         for(Apartment apartment : floor){

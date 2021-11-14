@@ -1,7 +1,10 @@
 package com.avdeenko.models;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 
+@Data
 public class Apartment implements Instruments{
     /**Static variable that helps determine the apartment number*/
     private static int staticNumApartment = 1;
@@ -28,14 +31,6 @@ public class Apartment implements Instruments{
     }
 
     public static void setStaticNumApartment(int staticNumApartment) { Apartment.staticNumApartment = staticNumApartment; }
-
-    public int getNumResidents() { return numResidents; }
-
-    public void setNumResidents(int numResidents) { this.numResidents = numResidents; }
-
-    public int getNumApartment() { return numApartment; }
-
-    public void setNumApartment(int numApartment) { this.numApartment = numApartment; }
 
     public void addRoom(Room room){ apartment.add(room); }
 

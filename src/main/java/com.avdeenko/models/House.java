@@ -1,7 +1,10 @@
 package com.avdeenko.models;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 
+@Data
 public class House implements Instruments{
     /**Variable that stores the house number*/
     private int     numHouse;
@@ -20,10 +23,6 @@ public class House implements Instruments{
         Apartment apartment = new Apartment();
         apartment.setStaticNumApartment(1);
     }
-
-    public int getNumFloor() { return house.size(); }
-
-    public int getNumHouse() { return numHouse; }
 
     public Apartment getApartment(int index){
         int numApartmentFloor = house.get(0).getNumApartment();
