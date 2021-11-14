@@ -1,5 +1,7 @@
-package com.avdeenko.userinterface;
+package com.avdeenko.userInterface;
 
+import com.avdeenko.factory.AutoHouseCreationFactory;
+import com.avdeenko.factory.YourselfHouseCreationFactory;
 import com.avdeenko.models.House;
 
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ public interface Tools {
             if (button == 0) {
                 break;
             }
-            int numFloor;
+            House newHouse;
             int numHouse;
             int index;
             switch (button) {
@@ -30,13 +32,7 @@ public interface Tools {
                         numHouse = enterNumInt();
                         index = findHouse(numHouse, arrayHouse);
                     }
-                    System.out.print("Enter the number of floors - ");
-                    numFloor = enterNumInt();
-                    House newHouse = new House.BuilderHouse()
-                            .setNumHouse(numHouse)
-                            .setNumFloor(numFloor)
-                            .methodOfCreation("yourself")
-                            .build();
+                    newHouse = new YourselfHouseCreationFactory(numHouse).createHouse();
                     arrayHouse.add(newHouse);
                     break;
                 case 2:
@@ -46,13 +42,8 @@ public interface Tools {
                         numHouse = (int) (2 + Math.random() * 50);
                         index = findHouse(numHouse, arrayHouse);
                     }
-                    numFloor = (int) (2 + Math.random() * 10);
-                    House newHouses = new House.BuilderHouse()
-                            .setNumHouse(numHouse)
-                            .setNumFloor(numFloor)
-                            .methodOfCreation("automatically")
-                            .build();
-                    arrayHouse.add(newHouses);
+                    newHouse = new AutoHouseCreationFactory(numHouse).createHouse();
+                    arrayHouse.add(newHouse);
                     break;
             }
             System.out.println("Do you want to make another house?\n1 - Yes\n0 - No");
@@ -77,7 +68,7 @@ public interface Tools {
         if (button == 0) {
             System.out.println("Number of existing houses:");
             for (int i = 0; i < arrayHouse.size(); ++i) {
-                System.out.print(arrayHouse.get(i).getNumHouse() + " ");
+                System.out.print(arrayHouse.get(i).getHouseNumber() + " ");
             }
             System.out.println();
         }
@@ -108,19 +99,19 @@ public interface Tools {
             switch (button) {
                 case 1:
                     System.out.println("----------------------------------------------------------");
-                    System.out.println("Number of floors - " + arrayHouse.get(index).getNumFloor());
+                    System.out.println("Number of floors - " + arrayHouse.get(index).getFloors().size());
                     break;
                 case 2:
                     System.out.println("----------------------------------------------------------");
-                    System.out.println("Number of apartments - " + arrayHouse.get(index).countApartments());
+                    //System.out.println("Number of apartments - " + arrayHouse.get(index).countApartments());
                     break;
                 case 3:
                     System.out.println("----------------------------------------------------------");
-                    System.out.println("Number of tenants - " + arrayHouse.get(index).countTenants());
+                    //System.out.println("Number of tenants - " + arrayHouse.get(index).countTenants());
                     break;
                 case 4:
                     System.out.println("----------------------------------------------------------");
-                    System.out.println("Total area of the house - " + arrayHouse.get(index).calculateArea());
+                    //System.out.println("Total area of the house - " + arrayHouse.get(index).calculateArea());
                     break;
                 case 5:
                     System.out.println("----------------------------------------------------------");
@@ -142,9 +133,9 @@ public interface Tools {
     static void outputAllHouse(ArrayList<House> arrayHouse) {
         System.out.println("----------------------------------------------------------");
         for (int i = 0; i < arrayHouse.size(); ++i) {
-            System.out.print("House number - " + arrayHouse.get(i).getNumHouse());
-            System.out.print("   Square - " + String.format("%.2f", arrayHouse.get(i).calculateArea()));
-            System.out.println("   Number of tenants - " + arrayHouse.get(i).countTenants());
+            System.out.print("House number - " + arrayHouse.get(i).getHouseNumber());
+            //System.out.print("   Square - " + String.format("%.2f", arrayHouse.get(i).calculateArea()));
+            //System.out.println("   Number of tenants - " + arrayHouse.get(i).countTenants());
         }
     }
 
@@ -159,7 +150,7 @@ public interface Tools {
         if (button == 0) {
             System.out.println("Number of existing houses:");
             for (int i = 0; i < arrayHouse.size(); ++i) {
-                System.out.print(arrayHouse.get(i).getNumHouse() + " ");
+                System.out.print(arrayHouse.get(i).getHouseNumber() + " ");
             }
             System.out.println();
         }
@@ -199,7 +190,7 @@ public interface Tools {
                 if (button == 0) {
                     System.out.println("Number of existing houses:");
                     for (int i = 0; i < arrayHouse.size(); ++i) {
-                        System.out.print(arrayHouse.get(i).getNumHouse() + " ");
+                        System.out.print(arrayHouse.get(i).getHouseNumber() + " ");
                     }
                     System.out.println();
                 }
@@ -221,7 +212,7 @@ public interface Tools {
                         index2 = findHouse(numHouse, arrayHouse);
                     }
                     System.out.println("----------------------------------------------------------");
-                    arrayHouse.get(index1).compare(arrayHouse.get(index2));
+                    //arrayHouse.get(index1).compare(arrayHouse.get(index2));
                 } else System.out.println("Not enough houses to compare");
             } else {
                 System.out.println("Do you know the number of the house you want to get information about?\n1 - Yes\n0 - No");
@@ -233,7 +224,7 @@ public interface Tools {
                 if (button == 0) {
                     System.out.println("Number of existing houses:");
                     for (int i = 0; i < arrayHouse.size(); ++i) {
-                        System.out.print(arrayHouse.get(i).getNumHouse() + " ");
+                        System.out.print(arrayHouse.get(i).getHouseNumber() + " ");
                     }
                     System.out.println();
                 }
@@ -245,7 +236,7 @@ public interface Tools {
                     numHouse = enterNumInt();
                     index = findHouse(numHouse, arrayHouse);
                 }
-                if (arrayHouse.get(index).countApartments() < 2)
+                /*if (arrayHouse.get(index).countApartments() < 2)
                     System.out.println("There are not enough apartments in the house for comparison");
                 else {
                     System.out.println("Do you know the number of the apartments\n1 - Yes\n0 - No");
@@ -282,7 +273,7 @@ public interface Tools {
                     } while (index1 == index2);
                     System.out.println("----------------------------------------------------------");
                     arrayHouse.get(index).getApartment(index1).compare(arrayHouse.get(index).getApartment(index2));
-                }
+                }*/
             }
         }
     }
@@ -290,7 +281,7 @@ public interface Tools {
     static int findHouse(int numHouse, ArrayList<House> houses) {
         int index = 0;
         while (index < houses.size()) {
-            if (houses.get(index).getNumHouse() == numHouse) {
+            if (houses.get(index).getHouseNumber() == numHouse) {
                 return index;
             }
             index += 1;
@@ -306,6 +297,22 @@ public interface Tools {
                 n = sc.nextInt();
                 break;
             } else {
+                System.out.println("Enter the number!");
+                sc.next();
+            }
+        }
+        return n;
+    }
+
+    static double enterNumDouble(){
+        Scanner sc = new Scanner(System.in);
+        double n = 0;
+        while(sc.hasNext()){
+            if(sc.hasNextDouble()){
+                n = sc.nextDouble();
+                break;
+            }
+            else {
                 System.out.println("Enter the number!");
                 sc.next();
             }
