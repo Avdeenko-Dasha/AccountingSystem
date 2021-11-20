@@ -1,6 +1,6 @@
 package com.avdeenko.userInterface;
 
-import com.avdeenko.factory.YourselfHouseCreationFactory;
+import com.avdeenko.factory.ManualHouseCreationFactory;
 import com.avdeenko.factory.AutoHouseCreationFactory;
 import com.avdeenko.models.House;
 import com.avdeenko.repository.HouseRepository;
@@ -35,7 +35,7 @@ public interface Tools {
                         houseNumber = enterNumInt();
                         house = HouseService.findHouse(houseNumber);
                     }
-                    newHouse = new YourselfHouseCreationFactory(houseNumber).createHouse();
+                    newHouse = new ManualHouseCreationFactory(houseNumber).createHouse();
                     HouseRepository.addHouse(newHouse);
                     break;
                 case 2:

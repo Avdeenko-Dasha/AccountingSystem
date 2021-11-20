@@ -9,12 +9,12 @@ import java.util.List;
 import static com.avdeenko.userInterface.Tools.enterNumDouble;
 import static com.avdeenko.userInterface.Tools.enterNumInt;
 
-public class YourselfHouseCreationFactory extends AbstractHouseCreationFactory{
+public class ManualHouseCreationFactory extends AbstractHouseCreationFactory{
     private final Integer floorNumber;
     private final Integer apartmentNumber;
     private final List<Double> apartmentsSquare;
 
-    public YourselfHouseCreationFactory(Integer houseNumber) {
+    public ManualHouseCreationFactory(Integer houseNumber) {
         super(houseNumber);
         System.out.print("Enter the number of floors - ");
         this.floorNumber = enterNumInt();
