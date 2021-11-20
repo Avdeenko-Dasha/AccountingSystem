@@ -6,8 +6,8 @@ import com.avdeenko.models.Floor;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.avdeenko.userinterface.Tools.enterNumDouble;
-import static com.avdeenko.userinterface.Tools.enterNumInt;
+import static com.avdeenko.userInterface.Tools.enterNumDouble;
+import static com.avdeenko.userInterface.Tools.enterNumInt;
 
 public class YourselfHouseCreationFactory extends AbstractHouseCreationFactory{
     private final Integer floorNumber;
