@@ -1,19 +1,19 @@
 package com.avdeenko.factory;
 
-import com.avdeenko.models.Apartment;
-import com.avdeenko.models.Floor;
+import com.avdeenko.models.model.Apartment;
+import com.avdeenko.models.model.Floor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AutoHouseCreationFactory extends AbstractHouseCreationFactory {
-    private final Integer floorNumber;
+    private final Integer floorsNumber;
     private final Integer apartmentNumber;
     private final List<Double> apartmentsSquare;
 
     public AutoHouseCreationFactory(Integer houseNumber) {
         super(houseNumber);
-        this.floorNumber = (int) (2 + Math.random() * 10);
+        this.floorsNumber = (int) (2 + Math.random() * 10);
         this.apartmentNumber = (int) (1 + Math.random() * 5);
         this.apartmentsSquare = new ArrayList<>(apartmentNumber);
         for(int i = 0; i < apartmentNumber; ++i){
@@ -22,22 +22,20 @@ public class AutoHouseCreationFactory extends AbstractHouseCreationFactory {
     }
 
     @Override
-    protected Integer getFloorNumber() { return floorNumber; }
+    protected Integer getFloorsNumber() { return floorsNumber; }
 
     @Override
     protected Integer getApartmentNumber() { return apartmentNumber; }
 
     @Override
-    protected Floor createFloor(Integer number) {
-        Floor floor = new Floor();
-        floor.setNumberFloor(number);
-        return floor;
+    protected Floor createFloor(Integer houseNumber, Integer number) {
+        return new Floor(houseNumber, number);
     }
 
     @Override
-    protected Apartment createApartment(int numberApartment, int indexApartmentSquare) {
-        Apartment apartment = new Apartment();
-        apartment.setNumberApartment(numberApartment);
+    protected Apartment createApartment(Integer houseNumber, Integer floorNumber, Integer numberApartment, Integer indexApartmentSquare) {
+        Apartment apartment = new Apartment(houseNumber, floorNumber, numberApartment);
+        apartment.setNumber(numberApartment);
         apartment.setSquareApartment(apartmentsSquare.get(indexApartmentSquare));
         apartment.setResidentCount((int) (Math.random() * 5));
         return apartment;

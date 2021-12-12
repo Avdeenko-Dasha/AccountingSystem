@@ -1,23 +1,23 @@
 package com.avdeenko.factory;
 
-import com.avdeenko.models.Apartment;
-import com.avdeenko.models.Floor;
+import com.avdeenko.models.model.Apartment;
+import com.avdeenko.models.model.Floor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.avdeenko.userInterface.Tools.enterNumDouble;
-import static com.avdeenko.userInterface.Tools.enterNumInt;
+import static com.avdeenko.userInterface.UserInterface.enterNumDouble;
+import static com.avdeenko.userInterface.UserInterface.enterNumInt;
 
 public class ManualHouseCreationFactory extends AbstractHouseCreationFactory{
-    private final Integer floorNumber;
+    private final Integer floorsNumber;
     private final Integer apartmentNumber;
     private final List<Double> apartmentsSquare;
 
     public ManualHouseCreationFactory(Integer houseNumber) {
         super(houseNumber);
         System.out.print("Enter the number of floors - ");
-        this.floorNumber = enterNumInt();
+        this.floorsNumber = enterNumInt();
         System.out.print("Enter the number of apartments on the floor - ");
         this.apartmentNumber = enterNumInt();
         this.apartmentsSquare = new ArrayList<>(apartmentNumber);
@@ -28,22 +28,19 @@ public class ManualHouseCreationFactory extends AbstractHouseCreationFactory{
     }
 
     @Override
-    protected Integer getFloorNumber() { return floorNumber; }
+    protected Integer getFloorsNumber() { return floorsNumber; }
 
     @Override
     protected Integer getApartmentNumber() { return apartmentNumber; }
 
     @Override
-    protected Floor createFloor(Integer number) {
-        Floor floor = new Floor();
-        floor.setNumberFloor(number);
-        return floor;
+    protected Floor createFloor(Integer houseNumber, Integer number) {
+        return new Floor(houseNumber, number);
     }
 
     @Override
-    protected Apartment createApartment(int numberApartment, int indexApartmentSquare) {
-        Apartment apartment = new Apartment();
-        apartment.setNumberApartment(numberApartment);
+    protected Apartment createApartment(Integer houseNumber, Integer floorNumber,  Integer numberApartment, Integer indexApartmentSquare) {
+        Apartment apartment = new Apartment(houseNumber, floorNumber, numberApartment);
         apartment.setSquareApartment(apartmentsSquare.get(indexApartmentSquare));
         System.out.print("Enter the number of tenants in " + numberApartment + " apartment - ");
         apartment.setResidentCount(enterNumInt());
