@@ -36,8 +36,8 @@ public class ApartmentRepositoryImpl implements ApartmentRepository {
         try {
             Connection connection = connectionPool.getConnection();
             PreparedStatement prSt = connection.prepareStatement(insert);
-            prSt.setInt(1, object.getNumberHouse());
-            prSt.setInt(2, object.getNumberFloor());
+            prSt.setInt(1, object.getNumberOfHouse());
+            prSt.setInt(2, object.getNumberOfFloor());
             prSt.setInt(3, object.getNumber());
             prSt.setDouble(4, object.getSquareApartment());
             prSt.setInt(5, object.getResidentCount());
@@ -160,8 +160,8 @@ public class ApartmentRepositoryImpl implements ApartmentRepository {
     private Optional<Apartment> createApartment(ResultSet resultSet){
         Apartment apartment = new Apartment();
         try {
-            apartment.setNumberHouse(resultSet.getInt(Const.APARTMENT_NUMBER_HOUSE));
-        apartment.setNumberFloor(resultSet.getInt(Const.APARTMENT_NUMBER_FLOOR));
+            apartment.setNumberOfHouse(resultSet.getInt(Const.APARTMENT_NUMBER_HOUSE));
+        apartment.setNumberOfFloor(resultSet.getInt(Const.APARTMENT_NUMBER_FLOOR));
         apartment.setNumber(resultSet.getInt(Const.APARTMENT_NUMBER_APARTMENT));
         apartment.setSquareApartment(resultSet.getDouble(Const.APARTMENT_SQUARE_APARTMENT));
         apartment.setResidentCount(resultSet.getInt(Const.APARTMENT_RESIDENT_COUNT));

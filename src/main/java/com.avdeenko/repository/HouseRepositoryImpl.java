@@ -336,15 +336,15 @@ public class HouseRepositoryImpl implements HouseRepository{
                     && resultSet.getInt(Const.HOUSE_NUMBER_HOUSE) == numberOfHouse) {
                     Apartment apartment = new Apartment();
                     apartment.setNumber(resultSet.getInt(Const.APARTMENT_NUMBER_APARTMENT));
-                    apartment.setNumberHouse(numberOfHouse);
-                    apartment.setNumberFloor(i);
+                    apartment.setNumberOfHouse(numberOfHouse);
+                    apartment.setNumberOfFloor(i);
                     apartment.setSquareApartment(resultSet.getDouble(Const.APARTMENT_SQUARE_APARTMENT));
                     apartment.setResidentCount(resultSet.getInt(Const.APARTMENT_RESIDENT_COUNT));
                     apartments.add(apartment);
                 }
             } while(resultSet.next());
             floor.setNumber(i);
-            floor.setNumberHouse(numberOfHouse);
+            floor.setNumberOfHouse(numberOfHouse);
             floor.setApartments(apartments);
             floors.add(floor);
             resultSet.first();
