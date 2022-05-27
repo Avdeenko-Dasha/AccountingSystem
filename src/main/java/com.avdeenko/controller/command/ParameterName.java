@@ -1,0 +1,8 @@
+package com.avdeenko.controller.command;
+
+public enum ParameterName {
+    CREATE_HOUSE, CREATE_APARTMENTS,
+    CREATE_RESIDENTS, CREATE_HOUSE_AUTO,
+    DISPLAY_HOUSE, DELETE_HOUSE,
+    COMPARE_HOUSE, CALCULATE_SQUARE_AND_RESIDENTS
+}

@@ -1,26 +1,20 @@
 package com.avdeenko.factory;
 
-import com.avdeenko.models.model.Apartment;
-import com.avdeenko.models.model.Floor;
-import com.avdeenko.models.model.House;
-import com.avdeenko.repository.ApartmentRepository;
-import com.avdeenko.repository.FloorRepository;
-import com.avdeenko.repository.HouseRepository;
+import com.avdeenko.model.model.Apartment;
+import com.avdeenko.model.model.Floor;
+import com.avdeenko.model.model.House;
+import com.avdeenko.repository.HouseRepositoryImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractHouseCreationFactory {
     private final House house;
-    private final ApartmentRepository apartmentRepository;
-    private final FloorRepository floorRepository;
-    private final HouseRepository houseRepository;
+    private final HouseRepositoryImpl houseRepository;
 
-    public AbstractHouseCreationFactory(Integer houseNumber) {
-        this.house = new House(houseNumber);
-        this.apartmentRepository = new ApartmentRepository();
-        this.floorRepository = new FloorRepository(apartmentRepository);
-        this.houseRepository = new HouseRepository();
+    public AbstractHouseCreationFactory(Integer numberOfHouse) {
+        this.house = new House(numberOfHouse);
+        this.houseRepository = HouseRepositoryImpl.getHouseRepository();
     }
 
     public House createHouse() {
@@ -31,51 +25,41 @@ public abstract class AbstractHouseCreationFactory {
     }
 
     private void flushToDB() {
-        List<Apartment> apartments = new ArrayList<>();
-        List<Floor> floors = new ArrayList<>();
-        for (Floor floor : house.getFloors()) {
-            floors.add(floor);
-            apartments.addAll(floor.getApartments());
-        }
-        apartmentRepository.addApartments(apartments);
-        floorRepository.addFloors(floors);
-        houseRepository.addHouse(house);
-        // TODO: FloorRepository
-        // TODO: HouseRepository
+        houseRepository.creat(house);
     }
 
     private List<Floor> makeFloors() {
-        Integer numberHouse = house.getNumber();
-        Integer floorNumber = getFloorsNumber();
-        List<Floor> floors = new ArrayList<>(floorNumber);
-        for (int i = 0; i < floorNumber; i++) {
-            List<Apartment> apartments = makeApartments(numberHouse, i);
-            Floor floor = createFloor(numberHouse, i + 1);
+        Integer numberOfHouse = house.getNumber();
+        Integer numberOfFloors = getNumberOfFloors();
+        List<Floor> floors = new ArrayList<>(numberOfFloors);
+        for (int i = 0; i < numberOfFloors; i++) {
+            List<Apartment> apartments = makeApartments(numberOfHouse, i);
+            Floor floor = createFloor(numberOfHouse, i + 1);
             floor.setApartments(apartments);
             floors.add(floor);
         }
         return floors;
     }
 
-    protected abstract Integer getFloorsNumber();
+    protected abstract Integer getNumberOfFloors();
 
-    protected abstract Floor createFloor(Integer houseNumber, Integer number);
+    protected abstract Floor createFloor(Integer numberOfHouse, Integer numberOfFloor);
 
-    private List<Apartment> makeApartments(Integer houseNumber, Integer floorNumber) {
-        Integer apartmentNumber = getApartmentNumber();
-        List<Apartment> apartments = new ArrayList<>(apartmentNumber);
-        if (floorNumber == 0)
-            for (int i = 0; i < apartmentNumber; i++) {
-                apartments.add(createApartment(houseNumber, floorNumber + 1, i + 1, i));
+    private List<Apartment> makeApartments(Integer numberOfHouse, Integer numberOfFloor) {
+        Integer numberOfApartments = getNumberOfApartments();
+        List<Apartment> apartments = new ArrayList<>(numberOfApartments);
+        if (numberOfFloor == 0)
+            for (int i = 0; i < numberOfApartments; i++) {
+                apartments.add(createApartment(numberOfHouse, numberOfFloor + 1, i + 1, i));
             }
         else
-            for (int i = 0; i < apartmentNumber; i++) {
-                apartments.add(createApartment(houseNumber, floorNumber + 1, floorNumber * apartmentNumber + i + 1, i));
+            for (int i = 0; i < numberOfApartments; i++) {
+                apartments.add(createApartment(numberOfHouse, numberOfFloor + 1, numberOfFloor * numberOfApartments + i + 1, i));
             }
         return apartments;
     }
 
-    protected abstract Integer getApartmentNumber();
+    protected abstract Integer getNumberOfApartments();
 
-    protected abstract Apartment createApartment(Integer houseNumber, Integer floorNumber, Integer numberApartment, Integer indexApartmentSquare);
+    protected abstract Apartment createApartment(Integer numberOfHouse, Integer numberOfFloor, Integer numberOfApartment, Integer indexApartmentSquare);
 }
